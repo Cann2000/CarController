@@ -11,7 +11,7 @@ public class CarController : MonoBehaviour
 
     public bool ArabayaBinildi;
 
-    [SerializeField] OyunAyarlarý oyunayarlarý;
+    [SerializeField] OyunAyarlarÃ½ oyunayarlarÃ½;
 
     [SerializeField] float MotorForce;
     [SerializeField] float BreakForce;
@@ -29,7 +29,7 @@ public class CarController : MonoBehaviour
     void Start()
     {
         Karakter = GameObject.FindGameObjectWithTag("Player");
-        oyunayarlarý = GameObject.FindGameObjectWithTag("Player").GetComponent<OyunAyarlarý>();
+        oyunayarlarÃ½ = GameObject.FindGameObjectWithTag("Player").GetComponent<OyunAyarlarÃ½>();
         rb.centerOfMass = centerofmass.transform.localPosition;
     }
 
@@ -83,14 +83,17 @@ public class CarController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                gameObject.transform.GetChild(0).GetComponent<Camera>().enabled = false;
-                Karakter.SetActive(true);
-                gameObject.GetComponent<Rigidbody>().mass = 100;
-                ArabayaBinildi = !ArabayaBinildi;
-                oyunayarlarý.arabaybin = !oyunayarlarý.arabaybin;
-                for (int i = 0; i < oyunayarlarý.ArabadaKapanýcakPaneller.Length; i++)
+                    hit.transform.parent.GetChild(0).GetComponent<Camera>().enabled = true;
+                    //hit.transform.GetChild(0).GetComponent<Camera>().enabled = true;
+                    gameObject.transform.SetParent(hit.transform.parent);
+                    hit.transform.parent.GetComponent<CarController>().ArabayaBinildi = true;
+                    //hit.transform.GetComponent<CarController>().ArabayaBinildi = true;
+                    //hit.transform.GetComponent<Rigidbody>().mass = 1000;
+                    hit.transform.parent.GetComponent<Rigidbody>().mass = 1000;
+                    gameObject.SetActive(false);
+                for (int i = 0; i < oyunayarlarÃ½.ArabadaKapanÃ½cakPaneller.Length; i++)
                 {
-                    oyunayarlarý.ArabadaKapanýcakPaneller[i].SetActive(true);
+                    oyunayarlarÃ½.ArabadaKapanÃ½cakPaneller[i].SetActive(true);
                 }
             }
         }
